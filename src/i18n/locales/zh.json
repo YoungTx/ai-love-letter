@@ -1,0 +1,15 @@
+{
+  "title": "AI三行情书生成器",
+  "description": "输入你的心意，让AI为你谱写动人的三行情书",
+  "input": {
+    "placeholder": "描述你的心意...",
+    "button": "生成情书",
+    "generating": "生成中..."
+  },
+  "result": {
+    "title": "生成结果",
+    "waiting": "等待生成浪漫的三行情书...",
+    "copy": "复制文本",
+    "save": "保存图片"
+  }
+} 

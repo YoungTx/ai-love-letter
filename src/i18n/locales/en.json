@@ -1,0 +1,15 @@
+{
+  "title": "AI Love Letter Generator",
+  "description": "Input your feelings, let AI write a touching three-line love letter",
+  "input": {
+    "placeholder": "Describe your feelings...",
+    "button": "Generate Letter",
+    "generating": "Generating..."
+  },
+  "result": {
+    "title": "Generated Result",
+    "waiting": "Waiting to generate romantic love letter...",
+    "copy": "Copy Text",
+    "save": "Save Image"
+  }
+} 
