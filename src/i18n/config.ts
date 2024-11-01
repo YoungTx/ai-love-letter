@@ -1,16 +1,16 @@
 import { getRequestConfig } from 'next-intl/server';
 
-export const locales = ['zh', 'en', 'ja'] as const;
+export const locales = ['en', 'zh', 'ja'] as const;
 
-export type Locale = typeof locales[number];
+export type Locale = (typeof locales)[number];
 
 export const localeNames: Record<Locale, string> = {
-  ja: '🇯🇵日本語',
-  zh: '🇨🇳中文',
-  en: '🇺🇸English',
-} as const;
+  en: 'English',
+  zh: '中文',
+  ja: '日本語',
+};
 
-export const defaultLocale: Locale = 'ja';
+export const defaultLocale: Locale = 'zh';
 
 export const timeZone = 'Asia/Tokyo'
 
