@@ -10,7 +10,7 @@ interface LoveLetterDisplayProps {
 }
 
 export function LoveLetterDisplay({ code, className, waitingText }: LoveLetterDisplayProps) {
-  code = `<!DOCTYPE html>
+  code = false ? `<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
@@ -121,7 +121,7 @@ export function LoveLetterDisplay({ code, className, waitingText }: LoveLetterDi
     }
   </style>
 </body>
-</html>`
+</html>` : '';
     if (!code) {
     return (
       <div className="text-muted-foreground italic text-center">
@@ -130,7 +130,7 @@ export function LoveLetterDisplay({ code, className, waitingText }: LoveLetterDi
     );
   }
 
-  // 提取内容和类名
+  // 提取内容和样式
   const htmlContent = React.useMemo(() => {
     try {
       // 提取 body 标签和其内容
@@ -149,6 +149,10 @@ export function LoveLetterDisplay({ code, className, waitingText }: LoveLetterDi
       if (!firstDivMatch) {
         throw new Error('No main div found');
       }
+
+      // 提取 style 标签内容
+      const styleMatch = code.match(/<style[^>]*>([\s\S]*?)<\/style>/i);
+      const styles = styleMatch ? styleMatch[1] : '';
 
       const divClassMatch = firstDivMatch[1].match(/class="([^"]*)"/);
       const divClasses = divClassMatch ? divClassMatch[1] : '';
@@ -177,10 +181,11 @@ export function LoveLetterDisplay({ code, className, waitingText }: LoveLetterDi
         )
         .join(' ');
 
-      // 构建新的 HTML 结构
+      // 构建新的 HTML 结构，包含样式
       return {
         layoutClasses,
-        content: `<div class="${cn(divClasses, bgClasses)}">${innerContent}</div>`
+        content: `<div class="${cn(divClasses, bgClasses)}">${innerContent}</div>`,
+        styles
       };
     } catch (error) {
       console.error('Failed to process HTML:', error);
@@ -201,7 +206,6 @@ export function LoveLetterDisplay({ code, className, waitingText }: LoveLetterDi
       id="love-letter-content"
       className={cn(
         "w-full",
-        // htmlContent.layoutClasses,
         className || ''
       )}
     >
@@ -210,6 +214,8 @@ export function LoveLetterDisplay({ code, className, waitingText }: LoveLetterDi
         className="w-full flex justify-center"
         dangerouslySetInnerHTML={{ __html: htmlContent.content }}
       />
+      {/* 渲染提取的样式 */}
+      <style dangerouslySetInnerHTML={{ __html: htmlContent.styles }} />
     </div>
   );
 }
