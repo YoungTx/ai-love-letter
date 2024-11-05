@@ -8,6 +8,7 @@ import { ApiConfigDialog } from "./api-config-dialog";
 import { LoveLetterDisplay } from "./love-letter-display";
 import { generateLoveLetter } from "@/lib/ai";
 import { useLocalStorage } from "@/hooks/use-local-storage";
+import { captureElement } from "@/lib/utils";
 
 interface ApiConfig {
   provider: "openai" | "anthropic";
@@ -46,6 +47,21 @@ export function LoveLetterGenerator() {
       alert(t("apiConfig.error.failed"));
     } finally {
       setIsGenerating(false);
+    }
+  };
+
+  const handleShare = async () => {
+    try {
+      const imageData = await captureElement('love-letter-content');
+      if (imageData) {
+        const link = document.createElement('a');
+        link.download = `love-letter-${new Date().getTime()}.png`;
+        link.href = imageData;
+        link.click();
+      }
+    } catch (error) {
+      console.error('Failed to save image:', error);
+      alert(t("result.saveFailed"));
     }
   };
 
