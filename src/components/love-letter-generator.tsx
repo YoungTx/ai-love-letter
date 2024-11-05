@@ -41,6 +41,8 @@ export function LoveLetterGenerator() {
     setIsGenerating(true);
     try {
       const result = await generateLoveLetter(input, config, locale);
+      console.log('result', result);
+      
       setCode(result);
     } catch (error) {
       console.error(error);
