@@ -11,7 +11,6 @@ interface LoveLetterDisplayProps {
 
 export function LoveLetterDisplay({ code, className, waitingText }: LoveLetterDisplayProps) {
   console.log('Original code:', code);
-  
   if (!code) {
     return (
       <div className="text-muted-foreground italic text-center">
@@ -24,11 +23,11 @@ export function LoveLetterDisplay({ code, className, waitingText }: LoveLetterDi
   const htmlContent = React.useMemo(() => {
     try {
       // 从反引号中提取 HTML 内容
-      const htmlMatch = code.match(/`([\s\S]*?)`/);
-      if (!htmlMatch) {
-        throw new Error('No HTML content found in backticks');
-      }
-      const htmlCode = htmlMatch[1];
+      // const htmlMatch = code.match(/`([\s\S]*?)`/);
+      // if (!htmlMatch) {
+      //   throw new Error('No HTML content found in backticks');
+      // }
+      const htmlCode = code
       console.log('Extracted HTML:', htmlCode);
 
       // 提取 body 标签和其内容
