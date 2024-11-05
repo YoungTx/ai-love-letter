@@ -11,5 +11,29 @@
     "waiting": "等待生成浪漫的三行情书...",
     "copy": "复制文本",
     "save": "保存图片"
+  },
+  "about": {
+    "title": "关于 AI 情书生成器",
+    "description": "一个充满爱与创意的开源项目",
+    "project": {
+      "title": "项目介绍",
+      "description": "AI 情书生成器是一个开源项目，旨在帮助人们表达内心的情感。通过先进的 AI 技术，我们可以生成独特而富有诗意的情书，让表达爱意变得更加优雅和特别。",
+      "star": "为项目点赞"
+    },
+    "tech": {
+      "title": "技术栈",
+      "nextjs": "使用最新的 App Router 和 Server Components",
+      "rsc": "充分利用 React 服务器组件的优势",
+      "tailwind": "现代化的实用优先 CSS 框架",
+      "typescript": "类型安全的 JavaScript 超集",
+      "nextIntl": "完整的国际化解决方案",
+      "lucide": "精美的开源图标库"
+    },
+    "support": {
+      "title": "支持项目",
+      "description": "如果您喜欢这个项目，可以通过以下方式支持我们：",
+      "star": "给项目点赞",
+      "coffee": "请我喝咖啡"
+    }
   }
 } 

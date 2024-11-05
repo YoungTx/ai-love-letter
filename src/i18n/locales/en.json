@@ -11,5 +11,32 @@
     "waiting": "Waiting to generate romantic love letter...",
     "copy": "Copy Text",
     "save": "Save Image"
+  },
+  "nav": {
+    "about": "About"
+  },
+  "about": {
+    "title": "About AI Love Letter Generator",
+    "description": "An Open Source Project Full of Love and Creativity",
+    "project": {
+      "title": "Project Introduction",
+      "description": "AI Love Letter Generator is an open-source project designed to help people express their inner feelings. Through advanced AI technology, we can generate unique and poetic love letters, making the expression of love more elegant and special.",
+      "star": "Star Project"
+    },
+    "tech": {
+      "title": "Tech Stack",
+      "nextjs": "Using the latest App Router and Server Components",
+      "rsc": "Leveraging the power of React Server Components",
+      "tailwind": "Modern utility-first CSS framework",
+      "typescript": "Type-safe JavaScript superset",
+      "nextIntl": "Complete internationalization solution",
+      "lucide": "Beautiful open source icons"
+    },
+    "support": {
+      "title": "Support Project",
+      "description": "If you like this project, you can support us by:",
+      "star": "Star the project",
+      "coffee": "Buy me a coffee"
+    }
   }
 } 
