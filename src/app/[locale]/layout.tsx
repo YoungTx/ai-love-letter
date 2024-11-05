@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import { notFound } from "next/navigation";
 import { unstable_setRequestLocale } from 'next-intl/server';
 import { Providers } from "@/components/providers";
+import { SiteHeader } from "@/components/site-header";
+import { SiteFooter } from "@/components/site-footer";
 import "../globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -35,7 +37,17 @@ export default async function RootLayout({
     <html lang={locale} suppressHydrationWarning>
       <body className={inter.className}>
         <Providers messages={messages} locale={locale}>
-          {children}
+          <div className="relative min-h-screen flex flex-col">
+            <div className="fixed inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-pink-100 via-background to-background" />
+            
+            <SiteHeader />
+            
+            <main className="flex-1">
+              {children}
+            </main>
+            
+            <SiteFooter />
+          </div>
         </Providers>
       </body>
     </html>

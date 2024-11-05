@@ -12,6 +12,9 @@
     "copy": "复制文本",
     "save": "保存图片"
   },
+  "nav": {
+    "about": "关于"
+  },
   "about": {
     "title": "关于 AI 情书生成器",
     "description": "一个充满爱与创意的开源项目",
