@@ -38,5 +38,20 @@
       "star": "Star the project",
       "coffee": "Buy me a coffee"
     }
+  },
+  "apiConfig": {
+    "configure": "Configure API",
+    "title": "API Configuration",
+    "provider": "Service Provider",
+    "apiKey": "API Key",
+    "apiKeyPlaceholder": "Enter your API key",
+    "baseUrl": "API Base URL",
+    "model": "Model",
+    "save": "Save",
+    "cancel": "Cancel",
+    "error": {
+      "noConfig": "Please configure API first",
+      "failed": "Generation failed, please check your configuration and network"
+    }
   }
 } 

@@ -38,5 +38,20 @@
       "star": "给项目点赞",
       "coffee": "请我喝咖啡"
     }
+  },
+  "apiConfig": {
+    "configure": "配置 API",
+    "title": "API 配置",
+    "provider": "服务提供商",
+    "apiKey": "API 密钥",
+    "apiKeyPlaceholder": "请输入您的 API 密钥",
+    "baseUrl": "API 地址",
+    "model": "模型",
+    "save": "保存",
+    "cancel": "取消",
+    "error": {
+      "noConfig": "请先配置 API",
+      "failed": "生成失败，请检查配置和网络"
+    }
   }
 } 

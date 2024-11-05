@@ -38,5 +38,20 @@
       "star": "スターを付ける",
       "coffee": "コーヒーを奢る"
     }
+  },
+  "apiConfig": {
+    "configure": "API設定",
+    "title": "API設定",
+    "provider": "サービスプロバイダー",
+    "apiKey": "APIキー",
+    "apiKeyPlaceholder": "APIキーを入力してください",
+    "baseUrl": "APIベースURL",
+    "model": "モデル",
+    "save": "保存",
+    "cancel": "キャンセル",
+    "error": {
+      "noConfig": "先にAPIを設定してください",
+      "failed": "生成に失敗しました。設定とネットワークを確認してください"
+    }
   }
 } 
