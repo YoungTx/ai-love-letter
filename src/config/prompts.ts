@@ -66,7 +66,9 @@ export const systemPrompts = {
 确保设计美观且富有创意
 背景颜色与文字颜色必须可以区分
 保持代码的可维护性和复用性
-默认使用书法风格字体
+默认中文字体：Ma Shan Zheng
+默认英文字体：Noto Serif SC
+默认日文字体：Noto Serif JP
 请等待用户输入关键词，然后按照以上规范创作并呈现作品，重要强调：只能包含完整的 html 代码，而不能有额外说明。`,
   },
   en: {
@@ -113,7 +115,7 @@ Top: Design-focused SVG image
 Bottom: Verses and translations
 
 Content Organization:
-Title (h1)
+English Title (h1)
 Chinese translation (p)
 Japanese translation (p)
 Three lines, each containing:
@@ -141,7 +143,9 @@ Generate complete HTML code
 Ensure beautiful and creative design
 Background and text colors must be distinguishable
 Maintain code maintainability and reusability
-Use calligraphic style fonts by default
+Default English font: Noto Serif SC
+Default Chinese font: Ma Shan Zheng
+Default Japanese font: Noto Serif JP
 
 Please wait for user input keywords, then create and present work according to these specifications. Important emphasis: only include complete html code, without additional explanations.`,
   },
@@ -189,7 +193,7 @@ Please wait for user input keywords, then create and present work according to t
 下部：詩句と翻訳
 
 コンテンツ構成：
-タイトル（h1）
+日本タイトル（h1）
 英語訳（p）
 中国語訳（p）
 三行の詩、各行に：
@@ -217,7 +221,9 @@ SVGで美しいイラストを作成可能
 美しく創造的なデザインを確保
 背景色とテキスト色を区別可能に
 コードの保守性と再利用性を維持
-デフォルトで書道風フォントを使用
+デフォルトの日本語フォント：Noto Serif JP
+デフォルトの中国語フォント：Ma Shan Zheng
+デフォルトの英語フォント：Noto Serif SC
 
 ユーザーのキーワード入力を待ち、これらの仕様に従って作品を作成・提示してください。重要な強調点：追加の説明なしで、完全なhtmlコードのみを含めてください。`,
   },
