@@ -31,12 +31,12 @@ export function SiteFooter() {
               </li>
               <li>
                 <a 
-                  href="https://github.com/yourusername"
+                  href="https://www.simpleapitest.com/"
                   target="_blank"
                   rel="noreferrer"
                   className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  Developer
+                  SimpleApiTest
                 </a>
               </li>
             </ul>
@@ -50,12 +50,12 @@ export function SiteFooter() {
               <Heart className="h-4 w-4 text-red-500 animate-pulse" /> 
               by{" "}
               <a
-                href="https://github.com/yourusername"
+                href="https://github.com/AlpsA233"
                 target="_blank"
                 rel="noreferrer"
                 className="font-medium underline-offset-4 hover:underline"
               >
-                Your Name
+                AlpsA233
               </a>
             </p>
           </div>
