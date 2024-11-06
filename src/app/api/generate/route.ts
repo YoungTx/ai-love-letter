@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
     }
 
     const systemPrompt = systemPrompts[locale as keyof typeof systemPrompts].love_letter;
-
+    
     if (config.provider === "openai") {
       const response = await fetch(`${config.baseUrl}/chat/completions`, {
         method: "POST",
@@ -27,16 +27,23 @@ export async function POST(request: NextRequest) {
             { role: "user", content: prompt }
           ],
           temperature: 0.7,
-          max_tokens: 2000
+          max_tokens: 8192
         })
       });
 
       if (!response.ok) {
-        throw new Error(`OpenAI API error: ${response.statusText}`);
+        const errorText = await response.text();
+        console.error('OpenAI API error response:', errorText);
+        throw new Error(`OpenAI API error: ${response.status} ${response.statusText}`);
       }
 
-      const data = await response.json();
-      return new Response(JSON.stringify({ content: data.choices[0].message.content.trim() }));
+      try {
+        const data = await response.json();
+        return new Response(JSON.stringify({ content: data.choices[0].message.content.trim() }));
+      } catch (error) {
+        console.error('Error parsing OpenAI response:', error);
+        throw new Error('Invalid response format from OpenAI');
+      }
     } else {
       const response = await fetch(`${config.baseUrl}/v1/messages`, {
         method: "POST",
@@ -58,15 +65,25 @@ export async function POST(request: NextRequest) {
       });
 
       if (!response.ok) {
-        throw new Error(`Anthropic API error: ${response.statusText}`);
+        const errorText = await response.text();
+        console.error('Anthropic API error response:', errorText);
+        throw new Error(`Anthropic API error: ${response.status} ${response.statusText}`);
       }
 
-      const data = await response.json();
-      return new Response(JSON.stringify({ content: data.content[0].text.trim() }));
+      try {
+        const data = await response.json();
+        return new Response(JSON.stringify({ content: data.content[0].text.trim() }));
+      } catch (error) {
+        console.error('Error parsing Anthropic response:', error);
+        throw new Error('Invalid response format from Anthropic');
+      }
     }
   } catch (error) {
     console.error('Generation error:', error);
-    return new Response(JSON.stringify({ error: "Failed to generate content" }), {
+    return new Response(JSON.stringify({ 
+      error: error instanceof Error ? error.message : "Failed to generate content",
+      details: error instanceof Error ? error.stack : undefined
+    }), {
       status: 500,
     });
   }
