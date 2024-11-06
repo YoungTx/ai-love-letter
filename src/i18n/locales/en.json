@@ -10,7 +10,8 @@
     "title": "Generated Result",
     "waiting": "Waiting to generate romantic love letter...",
     "copy": "Copy Text",
-    "save": "Save Image"
+    "save": "Save Image",
+    "saveFailed": "Failed to save image, please try again"
   },
   "nav": {
     "about": "About"
@@ -53,5 +54,16 @@
       "noConfig": "Please configure API first",
       "failed": "Generation failed, please check your configuration and network"
     }
+  },
+  "auth": {
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
+    "loading": "Loading...",
+    "error": "Sign in failed",
+    "success": "Signed in successfully",
+    "profile": "Profile",
+    "myLetters": "My Letters",
+    "favorites": "Favorites",
+    "settings": "Settings"
   }
 } 

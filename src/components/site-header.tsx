@@ -1,47 +1,28 @@
 import Link from "next/link";
-import { Github } from "lucide-react";
-import { LanguageSwitcher } from "./language-switcher";
-import { useTranslations } from 'next-intl';
+import { useTranslations } from "next-intl";
+import { AuthButton } from "./auth-button";
 
 export function SiteHeader() {
-  const t = useTranslations('nav');
+  const t = useTranslations();
   
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-sm">
-      <div className="container flex h-16 items-center justify-between">
-        <div className="flex items-center gap-6">
-          <Link 
-            href="/" 
-            className="flex items-center space-x-2"
-          >
-            <span className="h-6 w-6 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 animate-pulse" />
-            <span className="font-bold bg-gradient-to-r from-pink-500 via-red-500 to-purple-500 text-transparent bg-clip-text">
-              Love Letter AI
-            </span>
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="container flex h-14 items-center">
+        <div className="mr-4 flex">
+          <Link href="/" className="mr-6 flex items-center space-x-2">
+            <span className="font-bold">{t("title")}</span>
           </Link>
-
-          <nav className="hidden md:flex gap-4">
-            <Link 
+          <nav className="flex items-center space-x-6 text-sm font-medium">
+            <Link
               href="/about"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              className="transition-colors hover:text-foreground/80 text-foreground/60"
             >
-              {t('about')}
+              {t("nav.about")}
             </Link>
           </nav>
         </div>
-
-        <div className="flex items-center gap-4">
-          <a
-            href="https://github.com/yourusername/ai-love-letter"
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center justify-center rounded-md w-9 h-9 bg-background/50 hover:bg-accent hover:text-accent-foreground transition-colors"
-          >
-            <Github className="h-5 w-5" />
-            <span className="sr-only">GitHub</span>
-          </a>
-          <LanguageSwitcher />
-        </div>
+        <div className="flex-1" />
+        <AuthButton />
       </div>
     </header>
   );

@@ -5,6 +5,7 @@ import { unstable_setRequestLocale } from 'next-intl/server';
 import { Providers } from "@/components/providers";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { AuthProvider } from "@/providers/auth-provider";
 import "../globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -42,19 +43,21 @@ export default async function RootLayout({
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&display=swap" />
       </head>
       <body className={inter.className}>
-        <Providers messages={messages} locale={locale}>
-          <div className="relative min-h-screen flex flex-col">
-            <div className="fixed inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-pink-100 via-background to-background" />
-            
-            <SiteHeader />
-            
-            <main className="flex-1">
-              {children}
-            </main>
-            
-            <SiteFooter />
-          </div>
-        </Providers>
+        <AuthProvider>
+          <Providers messages={messages} locale={locale}>
+            <div className="relative min-h-screen flex flex-col">
+              <div className="fixed inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-pink-100 via-background to-background" />
+              
+              <SiteHeader />
+              
+              <main className="flex-1">
+                {children}
+              </main>
+              
+              <SiteFooter />
+            </div>
+          </Providers>
+        </AuthProvider>
       </body>
     </html>
   );

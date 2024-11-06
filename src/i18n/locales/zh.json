@@ -54,5 +54,16 @@
       "noConfig": "请先配置 API",
       "failed": "生成失败，请检查配置和网络"
     }
+  },
+  "auth": {
+    "signIn": "登录",
+    "signOut": "退出",
+    "loading": "加载中...",
+    "error": "登录失败",
+    "success": "登录成功",
+    "profile": "个人资料",
+    "myLetters": "我的情书",
+    "favorites": "我的收藏",
+    "settings": "设置"
   }
 } 
