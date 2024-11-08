@@ -70,4 +70,9 @@ CREATE POLICY "用户可以查看自己的信息"
 
 CREATE POLICY "用户可以更新自己的信息"
   ON users FOR UPDATE
-  USING (auth.uid() = id); 
+  USING (auth.uid() = id);
+
+-- 添加允许插入新用户的策略
+CREATE POLICY "允许插入新用户"
+  ON users FOR INSERT
+  WITH CHECK (auth.uid() = id); 
