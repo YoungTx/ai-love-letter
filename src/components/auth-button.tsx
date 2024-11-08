@@ -11,42 +11,50 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { useEffect, useState } from "react";
-import type { User as SupabaseUser } from "@supabase/supabase-js";
+import { useAuth } from "@/providers/auth-provider";
+import { useState } from "react";
 
 export function AuthButton() {
   const router = useRouter();
-  const t = useTranslations("auth");
-  const supabase = createClientComponentClient();
-  const [user, setUser] = useState<SupabaseUser | null>(null);
-  const [loading, setLoading] = useState(true);
   const params = useParams();
   const locale = params.locale as string;
-
-  useEffect(() => {
-    const getUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      setUser(user);
-      setLoading(false);
-    };
-    getUser();
-  }, [supabase.auth]);
+  const t = useTranslations("auth");
+  const supabase = createClientComponentClient();
+  const { user, loading } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSignIn = async () => {
-    await supabase.auth.signInWithOAuth({
-      provider: 'github',
-      options: {
-        redirectTo: `${window.location.origin}/${locale}/auth/callback`
+    try {
+      setIsLoading(true);
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'github',
+        options: {
+          redirectTo: `${window.location.origin}/${locale}/auth/callback`,
+          queryParams: {
+            locale: locale
+          }
+        }
+      });
+
+      if (error) {
+        console.error('Sign in error:', error);
       }
-    });
+    } catch (error) {
+      console.error('Sign in error:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    router.refresh();
+    try {
+      await supabase.auth.signOut();
+    } catch (error) {
+      console.error('Sign out error:', error);
+    }
   };
 
-  if (loading) {
+  if (loading || isLoading) {
     return <Button variant="ghost" disabled>{t("loading")}</Button>;
   }
 

@@ -2,37 +2,36 @@ import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
-export async function GET(
-  request: Request,
-  { params }: { params: { locale: string } }
-) {
+export async function GET(request: Request) {
   const requestUrl = new URL(request.url);
   const code = requestUrl.searchParams.get('code');
+  const locale = requestUrl.pathname.split('/')[1] || 'ja';
 
   if (code) {
     const supabase = createRouteHandlerClient({ cookies });
     
-    // 交换 code 获取会话
-    const { data: { user }, error: authError } = await supabase.auth.exchangeCodeForSession(code);
+    const { data: { session }, error: authError } = await supabase.auth.exchangeCodeForSession(code);
     
-    if (!authError && user) {
-      // 检查用户是否已存在
+    if (authError) {
+      console.error('Auth error:', authError);
+      return NextResponse.redirect(new URL(`/${locale}/error`, requestUrl.origin));
+    }
+
+    if (session?.user) {
       const { data: existingUser, error: fetchError } = await supabase
         .from('users')
         .select()
-        .eq('id', user.id)
+        .eq('id', session.user.id)
         .single();
 
-      // 当用户不存在时，fetchError.code 会是 'PGRST116'
-      if ((!existingUser || fetchError?.code === 'PGRST116') && user.email) {
-        // 创建新用户记录
+      if ((!existingUser || fetchError?.code === 'PGRST116') && session.user.email) {
         const { error: insertError } = await supabase
           .from('users')
           .insert({
-            id: user.id,
-            email: user.email,
-            name: user.user_metadata.name || user.email?.split('@')[0],
-            avatar_url: user.user_metadata.avatar_url,
+            id: session.user.id,
+            email: session.user.email,
+            name: session.user.user_metadata.name || session.user.email?.split('@')[0],
+            avatar_url: session.user.user_metadata.avatar_url,
             provider: 'github'
           });
 
@@ -43,6 +42,5 @@ export async function GET(
     }
   }
 
-  // 重定向到带有语言前缀的首页
-  return NextResponse.redirect(new URL(`/${params.locale}`, requestUrl.origin));
+  return NextResponse.redirect(new URL(`/${locale}`, requestUrl.origin));
 } 
