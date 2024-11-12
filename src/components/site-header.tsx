@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { AuthButton } from "./auth-button";
+import { LanguageSwitcher } from "./language-switcher";
 
 export function SiteHeader() {
   const t = useTranslations();
@@ -22,7 +23,10 @@ export function SiteHeader() {
           </nav>
         </div>
         <div className="flex-1" />
-        <AuthButton />
+        <div className="flex items-center gap-4">
+          <LanguageSwitcher />
+          <AuthButton />
+        </div>
       </div>
     </header>
   );
