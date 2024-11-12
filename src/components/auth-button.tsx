@@ -10,18 +10,19 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useAuth } from "@/providers/auth-provider";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 export function AuthButton() {
   const router = useRouter();
   const params = useParams();
   const locale = params.locale as string;
   const t = useTranslations("auth");
-  const supabase = createClientComponentClient();
   const { user, loading } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
+
+  const supabase = createClientComponentClient();
 
   const handleSignIn = async () => {
     try {

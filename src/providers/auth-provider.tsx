@@ -24,20 +24,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const setupAuth = async () => {
       try {
-        // 获取初始会话
         const { data: { session } } = await supabase.auth.getSession();
         setUser(session?.user ?? null);
         
-        // 设置认证状态监听
-        const {
-          data: { subscription },
-        } = supabase.auth.onAuthStateChange(async (event, session) => {
-          console.log('Auth state changed in provider:', event, session);
+        const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+          console.log('Auth state changed:', event, session);
           setUser(session?.user ?? null);
           
-          if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
+          if (event === 'SIGNED_IN') {
             router.refresh();
           } else if (event === 'SIGNED_OUT') {
+            setUser(null);
             router.refresh();
           }
         });
@@ -50,12 +47,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
     };
 
-    const subscription = setupAuth();
-    
-    return () => {
-      subscription.then(sub => sub?.unsubscribe());
-    };
+    setupAuth();
   }, [supabase, router]);
+
+    console.log('AuthProvider state:', { user, loading });
 
   return (
     <AuthContext.Provider value={{ user, loading }}>

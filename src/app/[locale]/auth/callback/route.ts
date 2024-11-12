@@ -6,9 +6,16 @@ export async function GET(request: Request) {
   const requestUrl = new URL(request.url);
   const code = requestUrl.searchParams.get('code');
   const locale = requestUrl.pathname.split('/')[1] || 'ja';
+  
+  console.log('Callback handler started:', {
+    url: request.url,
+    code: code ? 'exists' : 'missing',
+    locale
+  });
 
   if (code) {
-    const supabase = createRouteHandlerClient({ cookies });
+    const cookieStore = cookies();
+    const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
     
     const { data: { session }, error: authError } = await supabase.auth.exchangeCodeForSession(code);
     
