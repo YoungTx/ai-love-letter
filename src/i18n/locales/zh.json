@@ -65,5 +65,20 @@
     "myLetters": "我的情书",
     "favorites": "我的收藏",
     "settings": "设置"
+  },
+  "history": {
+    "title": "我的情书记录",
+    "prompt": "提示词",
+    "noLetters": "还没有生成过情书",
+    "delete": "删除",
+    "deleteConfirm": "确定要删除这封情书吗？",
+    "public": "公开",
+    "private": "私密",
+    "promptTitle": "提示词",
+    "details": "详细信息",
+    "favorites": "收藏",
+    "share": "分享",
+    "model": "模型",
+    "apiHost": "API 地址"
   }
 } 

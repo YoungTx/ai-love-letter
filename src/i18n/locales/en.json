@@ -65,5 +65,20 @@
     "myLetters": "My Letters",
     "favorites": "Favorites",
     "settings": "Settings"
+  },
+  "history": {
+    "title": "My Love Letters",
+    "prompt": "Prompt",
+    "noLetters": "No love letters generated yet",
+    "delete": "Delete",
+    "deleteConfirm": "Are you sure you want to delete this letter?",
+    "public": "Public",
+    "private": "Private",
+    "promptTitle": "Prompt",
+    "details": "Details",
+    "favorites": "Favorites",
+    "share": "Share",
+    "model": "Model",
+    "apiHost": "API Host"
   }
 } 

@@ -65,5 +65,20 @@
     "myLetters": "マイレター",
     "favorites": "お気に入り",
     "settings": "設定"
+  },
+  "history": {
+    "title": "マイラブレター",
+    "prompt": "プロンプト",
+    "noLetters": "まだラブレターが生成されていません",
+    "delete": "削除",
+    "deleteConfirm": "このレターを削除してもよろしいですか？",
+    "public": "公開",
+    "private": "非公開",
+    "promptTitle": "プロンプト",
+    "details": "詳細情報",
+    "favorites": "お気に入り",
+    "share": "シェア",
+    "model": "モデル",
+    "apiHost": "APIホスト"
   }
 } 
