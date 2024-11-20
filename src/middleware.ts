@@ -33,8 +33,6 @@ export async function middleware(request: NextRequest) {
   // 从原始响应复制所有 cookies 到国际化响应
   response.cookies.getAll().forEach(cookie => {
     intlResponse.cookies.set({
-      name: cookie.name,
-      value: cookie.value,
       ...cookie,
       // 确保 cookie 可以被客户端访问
       httpOnly: false

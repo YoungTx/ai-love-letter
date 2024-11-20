@@ -11,8 +11,8 @@ export interface Database {
           created_at: string
           updated_at: string
         }
-        Insert: Omit<Tables['users']['Row'], 'created_at' | 'updated_at'>
-        Update: Partial<Tables['users']['Insert']>
+        Insert: Omit<Database['public']['Tables']['users']['Row'], 'created_at' | 'updated_at'>
+        Update: Partial<Database['public']['Tables']['users']['Insert']>
       }
       love_letters: {
         Row: {
@@ -25,8 +25,8 @@ export interface Database {
           created_at: string
           updated_at: string
         }
-        Insert: Omit<Tables['love_letters']['Row'], 'id' | 'created_at' | 'updated_at'>
-        Update: Partial<Tables['love_letters']['Insert']>
+        Insert: Omit<Database['public']['Tables']['love_letters']['Row'], 'id' | 'created_at' | 'updated_at'>
+        Update: Partial<Database['public']['Tables']['love_letters']['Insert']>
       }
       favorites: {
         Row: {
@@ -35,11 +35,9 @@ export interface Database {
           letter_id: string
           created_at: string
         }
-        Insert: Omit<Tables['favorites']['Row'], 'id' | 'created_at'>
-        Update: Partial<Tables['favorites']['Insert']>
+        Insert: Omit<Database['public']['Tables']['favorites']['Row'], 'id' | 'created_at'>
+        Update: Partial<Database['public']['Tables']['favorites']['Insert']>
       }
     }
   }
-}
-
-export type Tables<T extends keyof Database['public']['Tables']> = Database['public']['Tables'][T] 
+} 
