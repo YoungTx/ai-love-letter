@@ -3,6 +3,21 @@ import { getTranslations } from 'next-intl/server';
 import { LoveLetterCard } from '@/components/love-letter-card';
 import { cookies } from 'next/headers';
 
+// 添加类型定义
+type Letter = {
+  id: string
+  content: string
+  prompt: string
+  created_at: string
+  user_id: string
+  is_public: boolean
+  model?: string
+  api_host?: string
+  _count?: {
+    favorites: number
+  }
+}
+
 export default async function HistoryPage() {
   const t = await getTranslations('history');
   const supabase = await createServerClient();
@@ -32,8 +47,9 @@ export default async function HistoryPage() {
           favorites
         }
       `)
-      .eq('user_id', session.user.id)
-      .order('created_at', { ascending: false });
+      .eq('user_id', session!.user.id)
+      .order('created_at', { ascending: false })
+      .returns<Letter[]>();
       
     if (error) {
       console.error('Error fetching letters:', error);
@@ -45,7 +61,7 @@ export default async function HistoryPage() {
         <h1 className="text-2xl font-bold mb-6">{t('title')}</h1>
         
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {letters?.map((letter) => (
+          {letters?.map((letter: Letter) => (
             <LoveLetterCard key={letter.id} letter={letter} />
           ))}
           
