@@ -44,7 +44,7 @@ OPENAI_API_KEY=你的_OpenAI_API_Key
 
 ```bash
 npm run dev
-```
+``` 
 
 在浏览器中访问 [http://localhost:3000](http://localhost:3000) 查看效果。
 
