@@ -1,0 +1,17 @@
+version: 35
+jobs:
+- name: syncGit
+  steps:
+  - !PushRepository
+    name: git-young
+    remoteUrl: https://github.com/YoungTx/ai-love-letter.git
+    userName: alps-1d
+    passwordSecret: git-young
+    force: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  triggers:
+  - !BranchUpdateTrigger {}
+  retryCondition: never
+  maxRetries: 3
+  retryDelay: 30
+  timeout: 14400
