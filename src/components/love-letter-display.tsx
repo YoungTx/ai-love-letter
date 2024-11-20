@@ -7,9 +7,10 @@ interface LoveLetterDisplayProps {
   code?: string;
   className?: string;
   waitingText: string;
+  previewMode?: boolean;
 }
 
-export function LoveLetterDisplay({ code, className, waitingText }: LoveLetterDisplayProps) {
+export function LoveLetterDisplay({ code, className, waitingText, previewMode = false }: LoveLetterDisplayProps) {
   const iframeRef = React.useRef<HTMLIFrameElement>(null);
 
   React.useEffect(() => {
@@ -50,7 +51,8 @@ export function LoveLetterDisplay({ code, className, waitingText }: LoveLetterDi
     <div 
       id="love-letter-content"
       className={cn(
-        "w-full min-h-[400px]",
+        "w-full",
+        previewMode ? "min-h-0" : "min-h-[400px]",
         className || ""
       )}
     >
