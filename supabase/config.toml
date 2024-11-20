@@ -267,3 +267,14 @@ s3_region = "env(S3_REGION)"
 s3_access_key = "env(S3_ACCESS_KEY)"
 # Configures AWS_SECRET_ACCESS_KEY for S3 bucket
 s3_secret_key = "env(S3_SECRET_KEY)"
+
+[auth.external.google]
+enabled = true
+client_id = "env(GOOGLE_CLIENT_ID)"
+secret = "env(GOOGLE_CLIENT_SECRET)"
+# 添加所有语言的回调地址
+redirect_urls = [
+  "http://127.0.0.1:3000/en/auth/callback",
+  "http://127.0.0.1:3000/ja/auth/callback", 
+  "http://127.0.0.1:3000/zh/auth/callback"
+]

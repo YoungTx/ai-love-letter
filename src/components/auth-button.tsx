@@ -2,7 +2,7 @@
 
 import { useRouter, useParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { LogIn, LogOut, User, History, Heart } from "lucide-react";
+import { LogIn, LogOut, User, History, Heart, Github, Mail } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -54,6 +54,27 @@ export function AuthButton() {
     }
   };
 
+  const handleGoogleSignIn = async () => {
+    try {
+      setIsLoading(true);
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/${locale}/auth/callback`,
+          queryParams: { locale }
+        }
+      });
+
+      if (error) {
+        console.error('Google sign in error:', error);
+      }
+    } catch (error) {
+      console.error('Google sign in error:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   if (loading || isLoading) {
     return <Button variant="ghost" disabled>{t("loading")}</Button>;
   }
@@ -87,9 +108,23 @@ export function AuthButton() {
   }
 
   return (
-    <Button variant="ghost" onClick={handleSignIn} className="flex items-center gap-2">
-      <LogIn className="h-4 w-4" />
-      {t("signIn")}
-    </Button>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" className="flex items-center gap-2">
+          <LogIn className="h-4 w-4" />
+          {t("signIn")}
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="w-48">
+        <DropdownMenuItem onClick={handleSignIn}>
+          <Github className="h-4 w-4 mr-2" />
+          GitHub
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={handleGoogleSignIn}>
+          <Mail className="h-4 w-4 mr-2" />
+          Google
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 } 

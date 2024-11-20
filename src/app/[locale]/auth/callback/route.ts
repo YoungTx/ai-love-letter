@@ -39,7 +39,7 @@ export async function GET(request: Request) {
             email: session.user.email,
             name: session.user.user_metadata.name || session.user.email?.split('@')[0],
             avatar_url: session.user.user_metadata.avatar_url,
-            provider: 'github'
+            provider: session.user.app_metadata.provider || 'github'
           });
 
         if (insertError) {
