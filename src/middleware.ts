@@ -2,38 +2,46 @@ import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs';
 import createIntlMiddleware from 'next-intl/middleware';
 import { NextRequest, NextResponse } from 'next/server';
 
-// 创建 next-intl 中间件
-const intlMiddleware = createIntlMiddleware({
-  locales: ['en', 'zh', 'ja'],
-  defaultLocale: 'ja'
-});
-
-// 主中间件函数
 export async function middleware(request: NextRequest) {
-  try {
-    // 创建基础响应
-    const response = NextResponse.next();
+  // 创建响应对象
+  const response = NextResponse.next();
 
-    // 创建 Supabase 客户端
-    const supabase = createMiddlewareClient({ req: request, res: response });
+  // 创建 Supabase 客户端
+  const supabase = createMiddlewareClient({ 
+    req: request, 
+    res: response,
+  });
 
-    // 先处理会话更新
-    await supabase.auth.getSession();
+  // 刷新 session
+  const { data: { session }, error } = await supabase.auth.getSession();
+  console.log('Middleware session:', { session, error });
 
-    // 然后处理国际化路由
-    const intlResponse = await intlMiddleware(request);
+  // 创建国际化中间件
+  const intlMiddleware = createIntlMiddleware({
+    locales: ['en', 'zh', 'ja'],
+    defaultLocale: 'ja'
+  });
 
-    // 合并 cookies
-    response.cookies.getAll().forEach(cookie => {
-      intlResponse.cookies.set(cookie.name, cookie.value, cookie.options);
+  // 处理国际化路由
+  const intlResponse = await intlMiddleware(request);
+
+  // 从原始响应复制所有 headers 到国际化响应
+  response.headers.forEach((value, key) => {
+    intlResponse.headers.set(key, value);
+  });
+
+  // 从原始响应复制所有 cookies 到国际化响应
+  response.cookies.getAll().forEach(cookie => {
+    intlResponse.cookies.set({
+      name: cookie.name,
+      value: cookie.value,
+      ...cookie,
+      // 确保 cookie 可以被客户端访问
+      httpOnly: false
     });
+  });
 
-    return intlResponse;
-  } catch (e) {
-    console.error('Middleware error:', e);
-    // 发生错误时至少保证国际化功能
-    return intlMiddleware(request);
-  }
+  return intlResponse;
 }
 
 // 配置匹配路径

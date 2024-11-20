@@ -79,6 +79,7 @@
     "favorites": "お気に入り",
     "share": "シェア",
     "model": "モデル",
-    "apiHost": "APIホスト"
+    "apiHost": "APIホスト",
+    "saveFailed": "記録の保存に失敗しました。もう一度お試しください"
   }
 } 

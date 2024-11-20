@@ -79,6 +79,7 @@
     "favorites": "收藏",
     "share": "分享",
     "model": "模型",
-    "apiHost": "API 地址"
+    "apiHost": "API 地址",
+    "saveFailed": "保存记录失败，请重试"
   }
 } 

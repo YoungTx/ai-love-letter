@@ -8,7 +8,10 @@ import { ApiConfigDialog } from "./api-config-dialog";
 import { LoveLetterDisplay } from "./love-letter-display";
 import { generateLoveLetter } from "@/lib/ai";
 import { useLocalStorage } from "@/hooks/use-local-storage";
-import { captureElement } from "@/lib/utils";
+import { captureElement } from "@/lib/capture-utils";
+import { createBrowserClient } from "@/lib/supabase";
+import { useAuth } from "@/providers/auth-provider";
+import { useToast } from "@/hooks/use-toast";
 
 interface ApiConfig {
   provider: "openai" | "anthropic";
@@ -31,22 +34,52 @@ export function LoveLetterGenerator() {
   const [code, setCode] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
   const [config] = useLocalStorage<ApiConfig>("api-config", defaultConfig);
+  const { user } = useAuth();
+  const { toast } = useToast();
+  const supabase = createBrowserClient();
 
   const handleGenerate = async () => {
     if (!config?.apiKey) {
-      alert(t("apiConfig.error.noConfig"));
+      toast({
+        variant: "destructive",
+        title: t("apiConfig.error.noConfig"),
+      });
       return;
     }
 
     setIsGenerating(true);
     try {
       const result = await generateLoveLetter(input, config, locale);
-      console.log('result', result);
-      
       setCode(result);
+      
+      // 如果用户已登录，保存生成记录
+      if (user) {
+        const { error } = await supabase
+          .from('love_letters')
+          .insert({
+            user_id: user.id,
+            content: result,
+            prompt: input,
+            locale: locale,
+            model: config.model,
+            api_host: config.baseUrl,
+            is_public: false
+          });
+
+        if (error) {
+          console.error('Failed to save letter:', error);
+          toast({
+            variant: "destructive",
+            title: t("history.saveFailed"),
+          });
+        }
+      }
     } catch (error) {
       console.error(error);
-      alert(t("apiConfig.error.failed"));
+      toast({
+        variant: "destructive",
+        title: t("apiConfig.error.failed"),
+      });
     } finally {
       setIsGenerating(false);
     }

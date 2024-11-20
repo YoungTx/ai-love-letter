@@ -79,6 +79,7 @@
     "favorites": "Favorites",
     "share": "Share",
     "model": "Model",
-    "apiHost": "API Host"
+    "apiHost": "API Host",
+    "saveFailed": "Failed to save record, please try again"
   }
 } 
