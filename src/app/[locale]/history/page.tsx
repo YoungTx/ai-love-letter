@@ -1,3 +1,4 @@
+'use server';
 import { createServerClient } from '@/lib/supabase-server';
 import { getTranslations } from 'next-intl/server';
 import { LoveLetterCard } from '@/components/love-letter-card';
